@@ -15,6 +15,10 @@ brew install python3
 
 `pip install -U pip`
 
+If `pip` now fails with: "pkg_resources.DistributionNotFound: pip==1.5.6", run:
+
+`easy_install --upgrade pip`
+
 ### Install & Use VirtualEnv
 
 `pip install virtualenv`
@@ -33,10 +37,16 @@ To deactivate virtualenv run the following from project root:
 
 ### Install & Run MongoDB
 
+Run `deactivate` if you're currently running virtualenv.
+
 ```
 brew install mongodb
 python -m pip install pymongo
 ```
+
+To upgrade pymongo:
+
+`python -m pip install pymongo --upgrade`
 
 To run MongoDB server:
 
