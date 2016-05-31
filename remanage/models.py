@@ -4,6 +4,14 @@ import datetime
 
 connect(MONGO_DB)
 
+class User(Document):
+    created_at = DateTimeField(default=datetime.datetime.now, required=True)
+    updated_at = DateTimeField(default=datetime.datetime.now, required=True)
+    name = StringField(required=True)
+    email = StringField(required=True)
+
+    meta = {'collection': 'users'}
+
 class Property(Document):
     created_at = DateTimeField(default=datetime.datetime.now, required=True)
     updated_at = DateTimeField(default=datetime.datetime.now, required=True)
@@ -19,5 +27,7 @@ class Property(Document):
     maintenance_factor = FloatField(required=True)
     vacancy_factor = FloatField(required=True)
     gross_monthly_rent = FloatField(required=True)
+    user = ReferenceField(User)
 
     meta = {'collection': 'properties'}
+
