@@ -74,13 +74,20 @@ WSGI_APPLICATION = 'realup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+MONGO_HOST = 'localhost'
+MONGO_DB = 'remanage'
+MONGO_USERNAME = 'remanage'
+MONGO_PASSWORD = 'test'
+MONGOADMIN_OVERRIDE_ADMIN = True
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': '',
+        'NAME': MONGO_DB,
+        'USERNAME': MONGO_USERNAME,
+        'PASSWORD': MONGO_PASSWORD,
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
