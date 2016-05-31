@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+APP_DIR = os.path.dirname( globals()['__file__'] )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'remanage',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,12 +84,16 @@ MONGOADMIN_OVERRIDE_ADMIN = True
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': MONGO_DB,
-        'USERNAME': MONGO_USERNAME,
-        'PASSWORD': MONGO_PASSWORD,
+        'ENGINE': 'django.db.backends.dummy'
     }
 }
+
+from mongoengine import connect
+connect(MONGO_DB, username=MONGO_USERNAME, password=MONGO_PASSWORD)
+
+SESSION_ENGINE = 'mongoengine.django.sessions'
+SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -107,3 +113,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = APP_DIR + '/static/'
