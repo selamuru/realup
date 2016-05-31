@@ -93,10 +93,6 @@ DATABASES = {
 from mongoengine import connect
 connect(MONGO_DB, username=MONGO_USERNAME, password=MONGO_PASSWORD)
 
-SESSION_ENGINE = 'mongoengine.django.sessions'
-SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
