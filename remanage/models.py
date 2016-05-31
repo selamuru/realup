@@ -9,7 +9,7 @@ class MyDocument(Document):
     created_at = DateTimeField(required=True)
     updated_at = DateTimeField(default=datetime.datetime.now, required=True)
 
-    meta = {'allow_inheritance': True}
+    meta = {'allow_inheritance': True, 'abstract': True}
 
     def calculate_timestamps(self):
         if not self.created_at:
