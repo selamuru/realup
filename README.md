@@ -59,3 +59,13 @@ mongo
 use remanage
 db.createUser({user: 'remanage', pwd: 'test', roles: [{role: 'dbAdmin', db: 'remanage'}]})
 ```
+
+### Running server and tests locally
+
+To run the server locally, make sure you're in the virtual environment and run the following:
+
+`python manage.py runserver`
+
+To run the tests locally, make sure you're in the virtual environment and run the following:
+
+`./manage.py test remanage.tests`
