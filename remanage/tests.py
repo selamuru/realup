@@ -38,10 +38,20 @@ class TestProperty(unittest.TestCase):
                          Decimal('445000'))
         self.assertEqual(Property.objects(id=self.my_property.id)[0].initial_loan,
                          Decimal('1335000'))
+        self.assertEqual(Property.objects(id=self.my_property.id)[0].monthly_mortgage,
+                         Decimal('5810'))
         self.assertEqual(Property.objects(id=self.my_property.id)[0].monthly_property_tax,
                          Decimal('1871.52'))
+        self.assertEqual(Property.objects(id=self.my_property.id)[0].total_monthly_expenses,
+                         Decimal('9361.53'))
         self.assertEqual(Property.objects(id=self.my_property.id)[0].gross_yearly_rent,
                          Decimal('72000'))
+        self.assertEqual(Property.objects(id=self.my_property.id)[0].net_monthly_cash_flow,
+                         Decimal('-3361.53'))
+        self.assertEqual(Property.objects(id=self.my_property.id)[0].net_annual_cash_flow,
+                         Decimal('-40338.31'))
+        self.assertEqual(Property.objects(id=self.my_property.id)[0].net_annual_roi,
+                         Decimal('-9.06'))
 
     def test_property_deletion_when_user_deleted(self):
         self.assertEqual(User.objects(email=self.my_user.email).count(), 1)
