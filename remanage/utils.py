@@ -1,2 +1,7 @@
+from decimal import *
+
+
 def percentage(n, percent):
-    return (percent * n) / 100
+    return (Decimal(percent) * Decimal(n)) / 100
+
+NUM_MONTHS = 12
