@@ -86,7 +86,7 @@ MONGOADMIN_OVERRIDE_ADMIN = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy'
+        'ENGINE': 'django.db.backends.sqlite3'
     }
 }
 
