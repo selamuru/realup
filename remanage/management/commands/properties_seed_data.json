@@ -1,0 +1,14 @@
+[
+  { "name": "Eddington", "address": "123 Eddington Ave San Jose, CA 45678",
+    "purchase_price": 1780000, "percentage_down": 25, "interest_rate": 3.25, "monthly_hoa": 200,
+    "property_tax_rate": 1.2617, "monthly_home_insurance": 100, "management_rate": 7,
+    "maintenance_factor": 10, "vacancy_factor": 6, "gross_monthly_rent": 6000 },
+  { "name": "Thornton", "address": "589 Wolf Ranch Rd Wolf Ranch, CO 12478",
+    "purchase_price": 488100, "percentage_down": 20, "interest_rate": 4.5, "monthly_hoa": 50,
+    "property_tax_rate": 0.726, "monthly_home_insurance": 75, "management_rate": 1,
+    "maintenance_factor": 2.5, "vacancy_factor": 0.5, "gross_monthly_rent": 5000 },
+  { "name": "Colorado Springs", "address": "589 Regency Dr Colorado Springs, CO 12380",
+    "purchase_price": 521250, "percentage_down": 30, "interest_rate": 4.0, "monthly_hoa": 65,
+    "property_tax_rate": 0.89, "monthly_home_insurance": 150, "management_rate": 1.5,
+    "maintenance_factor": 2, "vacancy_factor": 0.75, "gross_monthly_rent": 7000 }
+]
