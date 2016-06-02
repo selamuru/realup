@@ -5,7 +5,7 @@ from decimal import *
 
 class TestProperty(unittest.TestCase):
     def setUp(self):
-        self.my_user = User(name='John', email='john@test123.com')
+        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com')
         self.my_property = Property(name='test_property', address='123 Test Ave San Jose, CA 45678',
                                     purchase_price=1780000, percentage_down=25, interest_rate=3.25,
                                     monthly_hoa=200, property_tax_rate=1.2617,
@@ -64,12 +64,12 @@ class TestProperty(unittest.TestCase):
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.my_user = User(name='John', email='john@test123.com')
+        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com')
         self.my_user.save()
 
     def tearDown(self):
         self.my_user.delete()
-        self.assertEqual(User.objects.count(), 0)
+        self.assertEqual(User.objects(email=self.my_user.email).count(), 0)
 
     def test_crud_user(self):
         self.assertEqual(User.objects(email=self.my_user.email).count(), 1)
@@ -77,8 +77,8 @@ class TestUser(unittest.TestCase):
         self.assert_(User.objects(email=self.my_user.email)[0].created_at)
         self.assert_(User.objects(email=self.my_user.email)[0].updated_at)
 
-        self.my_user.name = 'Sara'
+        self.my_user.first_name = 'Sara'
         self.my_user.save()
-        self.assertEqual(User.objects(email=self.my_user.email)[0].name, 'Sara')
+        self.assertEqual(User.objects(email=self.my_user.email)[0].first_name, 'Sara')
         self.assertNotEqual(User.objects(email=self.my_user.email)[0].updated_at,
                             User.objects(email=self.my_user.email)[0].created_at)
