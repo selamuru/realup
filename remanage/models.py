@@ -30,7 +30,8 @@ class MyDocument(Document):
 
 
 class User(MyDocument):
-    name = StringField(required=True)
+    first_name = StringField(required=True)
+    last_name = StringField(required=True)
     email = StringField(required=True)
 
     meta = {'collection': 'users'}
