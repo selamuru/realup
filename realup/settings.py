@@ -112,3 +112,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = APP_DIR + '/static/'
+
+AUTHENTICATION_BACKENDS = ['remanage.backends.UserAuthBackend']
