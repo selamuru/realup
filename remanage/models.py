@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import check_password, make_password
 from mongoengine import *
 from realup.settings import MONGO_DB
 from remanage.utils import *
@@ -33,8 +34,23 @@ class User(MyDocument):
     first_name = StringField(required=True)
     last_name = StringField(required=True)
     email = StringField(required=True)
+    password = StringField(required=True)
 
     meta = {'collection': 'users'}
+
+    def hash_password(self):
+        self.password = make_password(self.password)
+
+    def set_password(self, password):
+        self.password = make_password(password)
+
+    def check_password(self, password):
+        return check_password(password, self.password)
+
+    _pre_save_hooks = [
+        MyDocument.calculate_timestamps,
+        hash_password
+    ]
 
 
 class Property(MyDocument):
