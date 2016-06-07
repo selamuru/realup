@@ -32,25 +32,14 @@ class Command(BaseCommand):
         users_data = self.get_data(os.path.join(directory, 'users_seed_data.json'))
         users = []
         for user_data in users_data:
-            my_user = User(first_name=user_data['first_name'], last_name=user_data['last_name'],
-                           email=user_data['email'])
+            my_user = User(**user_data)
             my_user.save()
             users.append(my_user)
 
         properties_data = self.get_data(os.path.join(directory, 'properties_seed_data.json'))
         i = 0
         for property_data in properties_data:
-            my_property = Property(name=property_data['name'], address=property_data['address'],
-                                   purchase_price=property_data['purchase_price'],
-                                   percentage_down=property_data['percentage_down'],
-                                   interest_rate=property_data['interest_rate'],
-                                   monthly_hoa=property_data['monthly_hoa'],
-                                   property_tax_rate=property_data['property_tax_rate'],
-                                   monthly_home_insurance=property_data['monthly_home_insurance'],
-                                   management_rate=property_data['management_rate'],
-                                   maintenance_factor=property_data['maintenance_factor'],
-                                   vacancy_factor=property_data['vacancy_factor'],
-                                   gross_monthly_rent=property_data['gross_monthly_rent'],
-                                   user=users[i])
+            property_data['user'] = users[i]
+            my_property = Property(**property_data)
             i = 0 if i >= len(users) else i + 1
             my_property.save()

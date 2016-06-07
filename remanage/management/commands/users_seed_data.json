@@ -1,6 +1,7 @@
 [
-  {"first_name": "John", "last_name": "Smith", "email": "john@test123.com"},
-  {"first_name": "Sara", "last_name": "Johnson", "email": "sara@test123.com"},
-  {"first_name": "Olivia", "last_name": "Williams", "email": "olivia@test123.com"},
-  {"first_name": "Dylan", "last_name": "Brown", "email": "dylan@test123.com"}
+  {"first_name": "John", "last_name": "Smith", "email": "john@test123.com", "password": "test12"},
+  {"first_name": "Sara", "last_name": "Johnson", "email": "sara@test123.com", "password": "abc"},
+  {"first_name": "Olivia", "last_name": "Williams", "email": "olivia@test123.com",
+    "password": "abc123"},
+  {"first_name": "Dylan", "last_name": "Brown", "email": "dylan@test123.com", "password": "hello12"}
 ]
