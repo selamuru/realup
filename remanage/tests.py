@@ -1,6 +1,7 @@
 from remanage.models import Property, User
 import unittest
 from decimal import *
+from django.contrib.auth import authenticate
 
 
 class TestProperty(unittest.TestCase):
@@ -90,3 +91,22 @@ class TestUser(unittest.TestCase):
         self.assertNotEqual(self.my_user.password, 'test12')
         self.assertFalse(self.my_user.password.startswith('!'))
 
+
+class TestAuthentication(unittest.TestCase):
+    def setUp(self):
+        self.my_user_raw_password = 'test12'
+        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
+                            password=self.my_user_raw_password)
+        self.my_user.save()
+
+    def tearDown(self):
+        self.my_user.delete()
+        self.assertEqual(User.objects(email=self.my_user.email).count(), 0)
+
+    def test_authentication(self):
+        auth_user = authenticate(username=self.my_user.email, password=self.my_user_raw_password)
+        self.assertEqual(auth_user, self.my_user)
+
+        auth_user = authenticate(username='invalid_user@test123.com',
+                                  password='invalid_password')
+        self.assertIsNone(auth_user)
