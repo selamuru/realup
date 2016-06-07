@@ -5,7 +5,8 @@ from decimal import *
 
 class TestProperty(unittest.TestCase):
     def setUp(self):
-        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com')
+        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
+                            password='test12')
         self.my_property = Property(name='test_property', address='123 Test Ave San Jose, CA 45678',
                                     purchase_price=1780000, percentage_down=25, interest_rate=3.25,
                                     monthly_hoa=200, property_tax_rate=1.2617,
@@ -64,7 +65,8 @@ class TestProperty(unittest.TestCase):
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com')
+        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
+                            password='test12')
         self.my_user.save()
 
     def tearDown(self):
@@ -82,3 +84,9 @@ class TestUser(unittest.TestCase):
         self.assertEqual(User.objects(email=self.my_user.email)[0].first_name, 'Sara')
         self.assertNotEqual(User.objects(email=self.my_user.email)[0].updated_at,
                             User.objects(email=self.my_user.email)[0].created_at)
+
+    def test_password_hashing(self):
+        self.assertTrue(self.my_user.check_password('test12'))
+        self.assertNotEqual(self.my_user.password, 'test12')
+        self.assertFalse(self.my_user.password.startswith('!'))
+
