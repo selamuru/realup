@@ -1,4 +1,4 @@
-from remanage.models import Property, User
+from remanage.models import Property, CustomUser
 import unittest
 from decimal import *
 from django.contrib.auth import authenticate
@@ -6,14 +6,15 @@ from django.contrib.auth import authenticate
 
 class TestProperty(unittest.TestCase):
     def setUp(self):
-        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
-                            password='test12')
+        self.my_user = CustomUser(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
+                                  password='test12')
         self.my_property = Property(name='test_property', address='123 Test Ave San Jose, CA 45678',
                                     purchase_price=1780000, percentage_down=25, interest_rate=3.25,
                                     monthly_hoa=200, property_tax_rate=1.2617,
                                     monthly_home_insurance=100, management_rate=7,
                                     maintenance_factor=10, vacancy_factor=6, gross_monthly_rent=6000,
                                     user=self.my_user)
+        import pdb; pdb.set_trace()
         self.my_user.save()
         self.my_property.save()
 
@@ -21,7 +22,7 @@ class TestProperty(unittest.TestCase):
         self.my_property.delete()
         self.assertEqual(Property.objects(user=self.my_user).count(), 0)
         self.my_user.delete()
-        self.assertEqual(User.objects(email=self.my_user.email).count(), 0)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email).count(), 0)
 
     def test_crud_property(self):
         self.assertEqual(Property.objects(user=self.my_user).count(), 1)
@@ -56,35 +57,35 @@ class TestProperty(unittest.TestCase):
                          Decimal('-9.06'))
 
     def test_property_deletion_when_user_deleted(self):
-        self.assertEqual(User.objects(email=self.my_user.email).count(), 1)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email).count(), 1)
         self.assertEqual(Property.objects(user=self.my_user).count(), 1)
 
         self.my_user.delete()
-        self.assertEqual(User.objects(email=self.my_user.email).count(), 0)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email).count(), 0)
         self.assertEqual(Property.objects(user=self.my_user).count(), 0)
 
 
-class TestUser(unittest.TestCase):
+class TestCustomUser(unittest.TestCase):
     def setUp(self):
-        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
+        self.my_user = CustomUser(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
                             password='test12')
         self.my_user.save()
 
     def tearDown(self):
         self.my_user.delete()
-        self.assertEqual(User.objects(email=self.my_user.email).count(), 0)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email).count(), 0)
 
     def test_crud_user(self):
-        self.assertEqual(User.objects(email=self.my_user.email).count(), 1)
-        self.assertEqual(User.objects(email=self.my_user.email)[0], self.my_user)
-        self.assert_(User.objects(email=self.my_user.email)[0].created_at)
-        self.assert_(User.objects(email=self.my_user.email)[0].updated_at)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email).count(), 1)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email)[0], self.my_user)
+        self.assert_(CustomUser.objects(email=self.my_user.email)[0].created_at)
+        self.assert_(CustomUser.objects(email=self.my_user.email)[0].updated_at)
 
         self.my_user.first_name = 'Sara'
         self.my_user.save()
-        self.assertEqual(User.objects(email=self.my_user.email)[0].first_name, 'Sara')
-        self.assertNotEqual(User.objects(email=self.my_user.email)[0].updated_at,
-                            User.objects(email=self.my_user.email)[0].created_at)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email)[0].first_name, 'Sara')
+        self.assertNotEqual(CustomUser.objects(email=self.my_user.email)[0].updated_at,
+                            CustomUser.objects(email=self.my_user.email)[0].created_at)
 
     def test_password_hashing(self):
         self.assertTrue(self.my_user.check_password('test12'))
@@ -95,13 +96,13 @@ class TestUser(unittest.TestCase):
 class TestAuthentication(unittest.TestCase):
     def setUp(self):
         self.my_user_raw_password = 'test12'
-        self.my_user = User(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
+        self.my_user = CustomUser(first_name='Jane', last_name='Doe', email='jane_doe@test123.com',
                             password=self.my_user_raw_password)
         self.my_user.save()
 
     def tearDown(self):
         self.my_user.delete()
-        self.assertEqual(User.objects(email=self.my_user.email).count(), 0)
+        self.assertEqual(CustomUser.objects(email=self.my_user.email).count(), 0)
 
     def test_authentication(self):
         auth_user = authenticate(username=self.my_user.email, password=self.my_user_raw_password)

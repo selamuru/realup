@@ -86,12 +86,13 @@ MONGOADMIN_OVERRIDE_ADMIN = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite.db',
     }
 }
 
-from mongoengine import connect
-connect(MONGO_DB, username=MONGO_USERNAME, password=MONGO_PASSWORD)
+from pymongo import MongoClient
+MongoClient('mongodb://%s:%s@%s/%s' % (MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_DB))
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -114,3 +115,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = APP_DIR + '/static/'
 
 AUTHENTICATION_BACKENDS = ['remanage.backends.UserAuthBackend']
+AUTH_USER_MODEL = 'remanage.CustomUser'

@@ -12,6 +12,8 @@ class UserAuthBackend(object):
         except User.DoesNotExist:
             return None
 
+    #def login(self):
+
     @staticmethod
     def get_user(user_id):
         try:

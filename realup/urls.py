@@ -18,6 +18,10 @@ urlpatterns = [
     # Portfolio route
     url(r'^portfolio/$', remanage_views.portfolio),
 
+    url(r'^login/$', remanage_views.login_user),
+
+    url(r'^main/$', remanage_views.main),
+
     # Redirect unknown paths back to root URL
-    url(r'^.*$', RedirectView.as_view(url='/', permanent=False), name='index')
+    #url(r'^.*$', RedirectView.as_view(url='/', permanent=False), name='index'),
 ]
